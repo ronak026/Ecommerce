@@ -2,8 +2,8 @@ const { Cart } = require("../model/Cart");
 const { User } = require("../model/User");
 const { Product } = require("../model/Product");
 const jwt = require("jsonwebtoken");
-// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-const stripe = require("stripe")("sk_test_51Re6uf0776rAQbQy0cUiA63RSoQ9fy4RRT1EQTuFbzmBKx8gORwbaPQ4UdwIlQ6FrJGRRr3pPIIDBFCyPjtdeccB00IgT4Uucc")
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+// const stripe = require("stripe")("sk_test_51Re6uf0776rAQbQy0cUiA63RSoQ9fy4RRT1EQTuFbzmBKx8gORwbaPQ4UdwIlQ6FrJGRRr3pPIIDBFCyPjtdeccB00IgT4Uucc")
 const { sendEmail } = require("../utils/userEmail");
 
 const cart = async (req, res) => {
