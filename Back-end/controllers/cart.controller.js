@@ -2,9 +2,9 @@ const { Cart } = require("../model/Cart");
 const { User } = require("../model/User");
 const { Product } = require("../model/Product");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const stripe = require("stripe")("sk_test_51Re6uf0776rAQbQy0cUiA63RSoQ9fy4RRT1EQTuFbzmBKx8gORwbaPQ4UdwIlQ6FrJGRRr3pPIIDBFCyPjtdeccB00IgT4Uucc")
+const { sendEmail } = require("../utils/userEmail");
 
 const cart = async (req, res) => {
     try {
@@ -206,23 +206,19 @@ const payment = async (req, res) => {
             success_url: `${currentUrl}/success`,
             cancel_url: `${currentUrl}/cancel`,
         });
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
+        
+        // Send email to user after successful payment
+        await sendEmail(
+            user.email, 
+            user.cart.products.map((item) => ({
+                name: item.product.name,
+                price: item.product.price,
+                // quantity: item.quantity
+            }))
+        );
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: user.email,
-            subject: "Payment Successful",
-            text: `Thank you for your payment! Your order has been received.`,
-        };
+        // Clear the cart after successful payment        
 
-        // Send email (optional: wrap in try/catch if you want to handle mail errors separately)
-        await transporter.sendMail(mailOptions);
         user.cart.products = [];
         user.cart.total = 0;
         await user.cart.save();
