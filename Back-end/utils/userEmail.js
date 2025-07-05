@@ -9,9 +9,9 @@ const sendEmail = async (userEmail, ProductArray) => {
             },
         });
 
-        const productDetails = ProductArray.map((product , index)=> {
-            `${index+1}.Name: ${product.name}. Price: ${product.price}. Quantity: ${product.quantity}`;
-        })
+        const productDetails = ProductArray.map((product, index) =>
+    `${index+1}. Name: ${product.name}. Price: ${product.price}. Quantity: ${product.quantity}`
+);
 
 
         const mailOptions = {
