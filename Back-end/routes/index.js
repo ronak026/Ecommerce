@@ -10,13 +10,14 @@ router.use('/user',userRoute)
 
 // Route for product-related operations
 // This will handle product listing, adding, updating, and deleting products
-router.use('/userProduct', productRoute);
+// router.use('/userProduct', productRoute);
+router.use('/product', productRoute);
 
-router.use('/singleProduct', productRoute);
+// router.use('/singleProduct', productRoute);
 
-router.use('/updateProduct', productRoute);
+// router.use('/updateProduct', productRoute);
 
-router.use('/deleteProduct', productRoute);
+// router.use('/deleteProduct', productRoute);
 
 router.use('/cart', cartRoute)
 
